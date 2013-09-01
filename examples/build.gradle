@@ -1,0 +1,26 @@
+/*
+ * @CopyrightNotice
+ */
+dependencies {
+    compile "commons-lang:commons-lang:2.6"
+    testCompile project(":base");
+}
+
+jar {
+    baseName = "datagen-examples"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
