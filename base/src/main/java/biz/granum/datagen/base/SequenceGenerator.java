@@ -13,26 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-dependencies {
-    compile "commons-lang:commons-lang:2.6"
-    testCompile project(":base");
-}
+package biz.granum.datagen.base;
 
-jar {
-    baseName = "datagen-examples"
-}
+import java.util.concurrent.atomic.AtomicInteger;
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
+/**
+ * @author Geoff M. Granum
+ */
+public class SequenceGenerator implements Generator<Integer> {
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
+    private final AtomicInteger sequence;
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+    public SequenceGenerator() {
+        this(0);
+    }
+
+    public SequenceGenerator(int startFrom) {
+        sequence = new AtomicInteger(startFrom);
+    }
+
+    @Override
+    public Integer next() {
+        return sequence.incrementAndGet();
+    }
 }
+ 
