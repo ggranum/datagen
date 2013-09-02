@@ -13,26 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
 dependencies {
     compile "commons-lang:commons-lang:2.6"
+
     testCompile project(":base");
+    testCompile "org.testng:testng:6.8"
+    testCompile "org.mockito:mockito-all:1.9.0"
+    testCompile "org.hamcrest:hamcrest-all:1.1"
 }
 
 jar {
     baseName = "datagen-examples"
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+task javadocJar(type: Jar) {
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'biz.granum.datagen'
+            artifactId 'examples'
+            version '0.0.1'
+
+            from components.java
+
+            artifact sourceJar {
+                classifier "sourcesJar"
+            }
+
+            artifact javadocJar {
+                classifier = 'javadoc'
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "file://$buildDir/repo"
+        }
+    }
+
 }

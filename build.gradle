@@ -13,20 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.7'
-}
 
+/*
+README:
+==========
+== Some useful targets:
+
+==== Build all artifacts (you can find them under the sub-project build directories):
+    ./gradlew clean build
+
+===== Similar to 'mvn clean install', were we using maven to build.
+    ./gradlew publishToMavenLocal
+
+===== Publish artifacts to "repository" (the project build directories, at the moment)
+    ./gradlew publish
+
+ */
 
 project.ext {
     groupId = "biz.granum"
 };
 
-
-apply plugin: 'java'
-
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
 
 repositories {
     mavenCentral()
@@ -34,29 +41,20 @@ repositories {
 
 
 subprojects {
-    apply plugin: 'java'
-
 
     repositories {
         mavenCentral()
     }
-
 
     configurations {
         providedCompile
         all*.exclude module: 'slf4j-simple'
         all*.exclude module: 'hamcrest-core'
     }
+}
 
-    dependencies {
-        testCompile "org.testng:testng:6.8"
-        testCompile "org.mockito:mockito-all:1.9.0"
-        testCompile "org.hamcrest:hamcrest-all:1.1"
-    }
 
-    version = '1.0'
 
-    jar {
-        manifest.attributes provider: 'gradle'
-    }
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.7'
 }
