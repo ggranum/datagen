@@ -15,22 +15,24 @@
  */
 package biz.granum.datagen.base;
 
-import static biz.granum.datagen.base.DefinedValueGenerator.theValue;
+import static biz.granum.datagen.base.DefinedValueSupplier.*;
 
 /**
  * @author Geoff M. Granum
  */
 public class StringGenerator implements Generator<String> {
 
-    private Generator<String> prefix = theValue("");
-    private Generator<String> content = theValue("");
-    private Generator<String> postfix = theValue("");
+  private Generator<String> prefix = theValue("");
+  private Generator<String> content = theValue("");
+  private Generator<String> postfix = theValue("");
+  private int chanceOfNull = 0;
 
     public StringGenerator() {
     }
 
     public StringGenerator prefix(String prefix) {
-        return this.prefix(theValue(prefix));
+    this.prefix = theValue(prefix);
+    return this;
     }
 
     public StringGenerator prefix(Generator<String> prefix) {
@@ -43,22 +45,33 @@ public class StringGenerator implements Generator<String> {
         return this;
     }
 
-    public Generator<String> postfix(String value) {
-        return this.postfix(theValue(value));
-    }
-
     public StringGenerator content(Generator<String> content) {
         this.content = content;
         return this;
     }
 
-    public Generator<String> content(String value) {
-        return this.content(theValue(value));
-    }
-
     @Override
     public String next() {
-        return prefix.next() + content.next() + postfix.next();
+    return shouldReturnNull() ? null : prefix.next() + content.next() + postfix.next();
+  }
+
+  private boolean shouldReturnNull() {
+    return Math.random() * 100 < chanceOfNull;
+  }
+
+  public StringGenerator postfix(String value) {
+    this.postfix = theValue(value);
+    return this;
+  }
+
+  public StringGenerator content(String value) {
+    this.content = theValue(value);
+    return this;
+  }
+
+  public StringGenerator nullChance(int chanceOfNull) {
+    this.chanceOfNull = chanceOfNull;
+    return this;
     }
 }
  
