@@ -13,36 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package biz.granum.datagen.base;
+package com.ggranum.datagen.base;
 
 /**
+ * Supply a constant, known value for every call to {@link #next()}
+ *
  * @author Geoff M. Granum
  */
-public class IntRangeGenerator implements Generator<Integer> {
+public class DefinedValueSupplier<T> implements Generator<T> {
 
-  private final int min;
-  private final int max;
-  private int current;
+  private final T value;
 
-  /**
-   * @param min The lowest (and first) value that will ever be returned by a call to next()
-   * @param max The largest value that will ever be returned by a call to next()
-   */
-  public IntRangeGenerator(int min, int max) {
-    this.min = min;
-    this.max = max;
-    this.current = min;
+  public DefinedValueSupplier(T value) {
+    this.value = value;
   }
 
   @Override
-  public Integer next() {
-    int next = current;
-    if(current == max) {
-      current = min;
-    } else {
-      current++;
-    }
-    return next;
+  public T next() {
+    return value;
+  }
+
+  /**
+   * Supply a constant value for every call to {@link #next()}
+   *
+   * @param value The value that will be returned on every call to {@link #next()}
+   *
+   * @return A {@link Generator} that will always return the passed argument.
+   */
+  public static <U> Generator<U> theValue(U value) {
+    return new DefinedValueSupplier<>(value);
   }
 }
  

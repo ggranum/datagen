@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package biz.granum.datagen.base;
+package com.ggranum.datagen.base;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;

@@ -13,14 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package biz.granum.datagen.base;
+package com.ggranum.datagen.base;
 
 /**
  * @author Geoff M. Granum
  */
-public interface Fixture<T> extends Generator<T> {
+public class PersistResult<G, R> {
 
-  public T nextPersisted();
+  public final G generated;
+  public final R persisted;
 
-  public T persist(T generated);
+  public PersistResult(G generated, R persisted) {
+    this.generated = generated;
+    this.persisted = persisted;
+  }
 }
+ 

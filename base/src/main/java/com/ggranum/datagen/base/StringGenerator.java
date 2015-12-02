@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package biz.granum.datagen.base;
-
-import static biz.granum.datagen.base.DefinedValueSupplier.*;
+package com.ggranum.datagen.base;
 
 /**
  * @author Geoff M. Granum
  */
 public class StringGenerator implements Generator<String> {
 
-  private Generator<String> prefix = theValue("");
-  private Generator<String> content = theValue("");
-  private Generator<String> postfix = theValue("");
+  private Generator<String> prefix = DefinedValueSupplier.theValue("");
+  private Generator<String> content = DefinedValueSupplier.theValue("");
+  private Generator<String> postfix = DefinedValueSupplier.theValue("");
   private int chanceOfNull = 0;
 
     public StringGenerator() {
     }
 
     public StringGenerator prefix(String prefix) {
-    this.prefix = theValue(prefix);
+    this.prefix = DefinedValueSupplier.theValue(prefix);
     return this;
     }
 
@@ -60,12 +58,12 @@ public class StringGenerator implements Generator<String> {
   }
 
   public StringGenerator postfix(String value) {
-    this.postfix = theValue(value);
+    this.postfix = DefinedValueSupplier.theValue(value);
     return this;
   }
 
   public StringGenerator content(String value) {
-    this.content = theValue(value);
+    this.content = DefinedValueSupplier.theValue(value);
     return this;
   }
 

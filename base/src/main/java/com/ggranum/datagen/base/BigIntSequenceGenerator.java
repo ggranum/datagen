@@ -13,19 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package biz.granum.datagen.base;
+package com.ggranum.datagen.base;
+
+import java.math.BigInteger;
 
 /**
  * @author Geoff M. Granum
  */
-public class PersistResult<G, R> {
+public class BigIntSequenceGenerator implements Generator<BigInteger> {
 
-  public final G generated;
-  public final R persisted;
+  private final SequenceGenerator sequenceGenerator;
 
-  public PersistResult(G generated, R persisted) {
-    this.generated = generated;
-    this.persisted = persisted;
+  public BigIntSequenceGenerator(boolean useGlobalSequence) {
+    if(useGlobalSequence) {
+      sequenceGenerator = SequenceGenerator.globalSequence();
+    } else {
+      sequenceGenerator = new SequenceGenerator();
+    }
+  }
+
+  public BigIntSequenceGenerator() {
+    this(false);
+  }
+
+  @Override
+  public BigInteger next() {
+    return new BigInteger(String.valueOf(sequenceGenerator.next()));
   }
 }
  
