@@ -1,46 +1,72 @@
-
-
 /*
-README:
-==========
-== Some useful targets:
-
-==== Build all artifacts (you can find them under the sub-project build directories):
-    ./gradlew clean build
-
-===== Similar to 'mvn clean install', were we using maven to build.
-    ./gradlew publishToMavenLocal
-
-===== Publish artifacts to "repository" (the project build directories, at the moment)
-    ./gradlew publish
-
+ * This software is licensed under the MIT License.
+ *
+ * Copyright (c) 2015 Geoff M. Granum
  */
 
-project.ext {
-    groupId = "com.ggranum"
-};
+import com.geoffgranum.gradle.BuildProps
 
-
-repositories {
-    mavenCentral()
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    }
 }
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = "6.2.2"
+}
+
+apply plugin: BuildProps
+
+
+
+buildProps.source("${project.rootDir}/gradle.local.properties")
+buildProps.required("build.env");
+buildProps.required(["project.version"])
+buildProps.required(["project.bintray.username"])
+buildProps.required(["project.bintray.apiKey"])
+
+
+buildProps.optional([])
+
 
 
 subprojects {
 
-    repositories {
-        mavenCentral()
-    }
+    plugins.withId('java', { _ ->
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    })
 
-    configurations {
-        providedCompile
-        all*.exclude module: 'slf4j-simple'
-        all*.exclude module: 'hamcrest-core'
+
+    configurations.all({
+        resolutionStrategy { ->
+            // fail eagerly on version conflict (includes transitive dependencies)
+            // e.g. multiple different versions of the same dependency (group and name are equal)
+            failOnVersionConflict()
+
+            // cache dynamic versions for 10 minutes
+            cacheDynamicVersionsFor 10 * 60, 'seconds'
+            // don't cache changing modules at all
+            cacheChangingModulesFor 0, 'seconds'
+        }
+    })
+
+}
+
+subprojects {
+
+    if(project.hasProperty('test')) {
+        test { ->
+            // enable TestNG support (default is JUnit)
+            useTestNG()
+            workingDir "${project.rootDir}/"
+        }
     }
 }
 
 
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.7'
-}

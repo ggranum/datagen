@@ -1,0 +1,82 @@
+plugins {
+    id  'java'
+    id 'maven-publish'
+    id 'com.jfrog.bintray'
+}
+
+version = rootProject['project.version']
+group = 'com.geoffgranum.datagen'
+
+
+repositories {
+    jcenter()
+    maven {
+        url  "https://dl.bintray.com/ggranum/datagen"
+    }
+}
+
+
+dependencies {
+    implementation "commons-lang:commons-lang:2.6"
+    implementation "com.google.guava:guava:23.6-jre"
+
+    testImplementation "org.testng:testng:7.1"
+    testImplementation "org.mockito:mockito-core:3.3.3"
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+}
+
+javadoc.options({
+    addStringOption('tag', 'todo')
+})
+
+jar {
+    archiveBaseName = project.name
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+
+publishing {
+    publications {
+        binTrayPublication(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+            groupId group
+            artifactId project.name
+            version version
+        }
+
+        archives(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+        }
+    }
+}
+
+
+
+bintray {
+    user = project['project.bintray.username']
+    key = project['project.bintray.apiKey']
+    publications = ['binTrayPublication']
+    publish = true
+    pkg {
+        repo = 'datagen'
+        name = project.name
+        licenses = ['Apache2']
+        vcsUrl = 'https://github.com/ggranum/datagen.git'
+        version {
+            name = version
+            desc = 'Base interfaces and data generators for simple types.'
+            released  = new Date()
+            vcsTag = version
+        }
+    }
+}

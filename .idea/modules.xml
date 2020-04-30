@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/datagen-api.iml" filepath="$PROJECT_DIR$/datagen-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/base.iml" filepath="$PROJECT_DIR$/core/base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core.iml" group="datagen/core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_main.iml" group="datagen/core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_test.iml" group="datagen/core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datagen.iml" filepath="$PROJECT_DIR$/.idea/modules/datagen.iml" group="datagen" />
+      <module fileurl="file://$PROJECT_DIR$/datagen-api.iml" filepath="$PROJECT_DIR$/datagen-api.iml" group="datagen-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datagen_buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/datagen_buildSrc.iml" group="datagen/datagen_buildSrc" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datagen_buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/datagen_buildSrc_main.iml" group="datagen/datagen_buildSrc" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datagen_buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/datagen_buildSrc_test.iml" group="datagen/datagen_buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
     </modules>
   </component>
 </project>
-

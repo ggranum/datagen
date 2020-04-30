@@ -1,0 +1,9 @@
+= datagen-api
+
+Rapidly generate arbitrarily large sets of realistic data models, reproducibly.
+
+== Test with real data... without using badly sanitized user data.
+
+String foo = new StringGenerator().next();
+
+Licensed under the Apache 2 license.
