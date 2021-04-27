@@ -1,4 +1,4 @@
-package com.geoffgranum.datagen.core;
+package com.fetherbrik.datagen.core;
 
 import org.testng.annotations.Test;
 

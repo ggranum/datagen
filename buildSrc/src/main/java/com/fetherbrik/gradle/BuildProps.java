@@ -3,7 +3,10 @@
  *
  * Copyright (c) 2015 Geoff M. Granum
  */
-package com.geoffgranum.gradle;
+package com.fetherbrik.gradle;
+
+import org.gradle.api.Plugin;
+import org.gradle.api.Project;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import org.gradle.api.Plugin;
-import org.gradle.api.Project;
 
 /**
  * Check for the presence of build properties, mark keys as required, etc.

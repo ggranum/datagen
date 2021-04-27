@@ -1,7 +1,7 @@
-package com.geoffgranum.datagen.core;
+package com.fetherbrik.datagen.core;
 
-import java.util.Random;
 import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  * Wrap another generator in a NullableGenerator in order to return null values based on chance.

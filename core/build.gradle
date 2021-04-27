@@ -5,7 +5,7 @@ plugins {
 }
 
 version = rootProject['project.version']
-group = 'com.geoffgranum.datagen'
+group = 'com.fetherbrik.datagen'
 
 
 repositories {

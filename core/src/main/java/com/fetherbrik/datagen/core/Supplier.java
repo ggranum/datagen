@@ -1,4 +1,4 @@
-package com.geoffgranum.datagen.core;
+package com.fetherbrik.datagen.core;
 
 /**
  * Supply a constant, known value for every call to {@link #next()}
