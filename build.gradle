@@ -23,16 +23,13 @@ wrapper {
 apply plugin: BuildProps
 
 
-
 buildProps.source("${project.rootDir}/gradle.local.properties")
-buildProps.required("build.env");
 buildProps.required(["project.version"])
 buildProps.required(["project.bintray.username"])
 buildProps.required(["project.bintray.apiKey"])
 
 
 buildProps.optional([])
-
 
 
 subprojects {
@@ -60,7 +57,7 @@ subprojects {
 
 subprojects {
 
-    if(project.hasProperty('test')) {
+    if (project.hasProperty('test')) {
         test { ->
             // enable TestNG support (default is JUnit)
             useTestNG()

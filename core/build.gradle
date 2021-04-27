@@ -17,11 +17,11 @@ repositories {
 
 
 dependencies {
-    implementation "commons-lang:commons-lang:2.6"
-    implementation "com.google.guava:guava:23.6-jre"
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.google.guava:guava:30.1.1-jre'
 
-    testImplementation "org.testng:testng:7.1"
-    testImplementation "org.mockito:mockito-core:3.3.3"
+    testImplementation 'org.testng:testng:7.4.0'
+    testImplementation 'org.mockito:mockito-core:3.9.0'
     testImplementation 'org.hamcrest:hamcrest:2.2'
 }
 
@@ -41,7 +41,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 artifacts {
     archives sourcesJar
 }
-
+test {
+    useTestNG() {
+    }
+}
 
 publishing {
     publications {
@@ -60,23 +63,22 @@ publishing {
     }
 }
 
-
-
 bintray {
     user = project['project.bintray.username']
     key = project['project.bintray.apiKey']
     publications = ['binTrayPublication']
     publish = true
     pkg {
+        userOrg = 'ggranum'
         repo = 'datagen'
         name = project.name
-        licenses = ['Apache2']
         vcsUrl = 'https://github.com/ggranum/datagen.git'
+        licenses = ['Apache-2.0']
         version {
-            name = version
+            name = rootProject['project.version']
             desc = 'Base interfaces and data generators for simple types.'
             released  = new Date()
-            vcsTag = version
+            vcsTag = rootProject['project.version']
         }
     }
 }

@@ -21,6 +21,12 @@
       <module name="core_test" target="11" />
       <module name="datagen-api-base" target="1.8" />
       <module name="datagen-api-examples" target="11" />
+      <module name="datagen.buildSrc" target="11" />
+      <module name="datagen.buildSrc.main" target="11" />
+      <module name="datagen.buildSrc.test" target="11" />
+      <module name="datagen.core" target="11" />
+      <module name="datagen.core.main" target="11" />
+      <module name="datagen.core.test" target="11" />
       <module name="datagen_buildSrc" target="1.8" />
       <module name="datagen_buildSrc_main" target="1.8" />
       <module name="datagen_buildSrc_test" target="1.8" />

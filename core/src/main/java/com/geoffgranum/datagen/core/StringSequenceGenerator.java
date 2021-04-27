@@ -1,35 +1,42 @@
 package com.geoffgranum.datagen.core;
 
-import org.apache.commons.lang.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Geoff M. Granum
  */
 public class StringSequenceGenerator implements Generator<String> {
 
-  private static final int DEFAULT_LEADING_ZEROS = Integer.parseInt(System.getProperty(
-      "datagen.string_sequence_generator.default_leading_zeros", "3"));
+  private final LongSequenceGenerator sequenceGenerator;
+  private int leftPadTo;
+  private char padChar;
 
-  private static final StringSequenceGenerator GLOBAL_GENERATOR =
-      new StringSequenceGenerator(DEFAULT_LEADING_ZEROS);
-
-  private final SequenceGenerator sequenceGenerator;
-  private int leadingZeros = 0;
-
-  public StringSequenceGenerator(int leadingZeros) {
-    this.leadingZeros = leadingZeros;
-    sequenceGenerator = new SequenceGenerator();
+  public StringSequenceGenerator(long min, long max, int leftPadTo, char padChar) {
+    sequenceGenerator = new LongSequenceGenerator(min, max);
+    this.leftPadTo = leftPadTo;
+    this.padChar = padChar;
   }
+
 
   /**
-   * Create a String Sequence Generator that utilizes a global counter and left-pads to a length of three.
+   * Create a String Sequence Generator that utilizes a global counter and left-zero-pads to a length of three.
    */
   public StringSequenceGenerator() {
-    this(3);
+    this(0, 999, 3, '0');
   }
 
-  public StringSequenceGenerator zeroPad(int numberOfZeros) {
-    leadingZeros = numberOfZeros;
+  public static StringSequenceGenerator inRange(int minInclusive, int maxInclusive) {
+    return new StringSequenceGenerator(minInclusive, maxInclusive, 0, '0');
+  }
+
+  public static StringSequenceGenerator inRange(int minInclusive, int maxInclusive, int leftPad, char padChar) {
+    return new StringSequenceGenerator(minInclusive, maxInclusive, leftPad, padChar);
+  }
+
+  public StringSequenceGenerator pad(int leftPadTo, char padChar) {
+    this.leftPadTo = leftPadTo;
+    this.padChar = padChar;
     return this;
   }
 
@@ -39,14 +46,10 @@ public class StringSequenceGenerator implements Generator<String> {
   }
 
   private String pad(String value) {
-    if(leadingZeros > 0) {
-      value = StringUtils.leftPad(value, leadingZeros, '0');
+    if (leftPadTo > 0) {
+      value = StringUtils.leftPad(value, leftPadTo, padChar);
     }
     return value;
-  }
-
-  public static StringSequenceGenerator globalStringSequenceGenerator() {
-    return GLOBAL_GENERATOR;
   }
 }
  
