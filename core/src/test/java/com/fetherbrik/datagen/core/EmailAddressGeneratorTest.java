@@ -10,16 +10,16 @@ public class EmailAddressGeneratorTest {
   @Test
   public void testCanGenerateBasicEmailAddress() {
     EmailAddressGenerator gen = new EmailAddressGenerator(
-        new StringGenerator().content("example"),
-        new StringGenerator().content("gmail.com"));
+        Supplier.of("example"),
+        Supplier.of("gmail.com"));
     assertThat(gen.next(), is("example@gmail.com"));
   }
 
   @Test
   public void testCanGenerateComplexLocalPart() {
     EmailAddressGenerator gen = new EmailAddressGenerator(
-        new StringGenerator().content("example"),
-        new StringGenerator().content("gmail.com"));
+        Supplier.of("example"),
+        Supplier.of("gmail.com"));
     assertThat(gen.next(), is("example@gmail.com"));
   }
 }
