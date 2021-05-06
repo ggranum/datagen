@@ -1,19 +1,10 @@
 plugins {
     id  'java'
     id 'maven-publish'
-    id 'com.jfrog.bintray'
 }
 
 version = rootProject['project.version']
 group = 'com.fetherbrik.datagen'
-
-
-repositories {
-    jcenter()
-    maven {
-        url  "https://dl.bintray.com/ggranum/datagen"
-    }
-}
 
 
 dependencies {
@@ -48,7 +39,7 @@ test {
 
 publishing {
     publications {
-        binTrayPublication(MavenPublication) {
+        releasePublication(MavenPublication) {
             artifact jar
             artifact sourcesJar
             groupId group
@@ -59,26 +50,6 @@ publishing {
         archives(MavenPublication) {
             artifact jar
             artifact sourcesJar
-        }
-    }
-}
-
-bintray {
-    user = project['project.bintray.username']
-    key = project['project.bintray.apiKey']
-    publications = ['binTrayPublication']
-    publish = true
-    pkg {
-        userOrg = 'ggranum'
-        repo = 'datagen'
-        name = project.name
-        vcsUrl = 'https://github.com/ggranum/datagen.git'
-        licenses = ['Apache-2.0']
-        version {
-            name = rootProject['project.version']
-            desc = 'Base interfaces and data generators for simple types.'
-            released  = new Date()
-            vcsTag = rootProject['project.version']
         }
     }
 }

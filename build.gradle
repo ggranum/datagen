@@ -6,15 +6,6 @@
 
 import com.fetherbrik.gradle.BuildProps
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
-    }
-}
-
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
     gradleVersion = "6.2.2"
@@ -25,8 +16,6 @@ apply plugin: BuildProps
 
 buildProps.source("${project.rootDir}/gradle.local.properties")
 buildProps.required(["project.version"])
-buildProps.required(["project.bintray.username"])
-buildProps.required(["project.bintray.apiKey"])
 
 
 buildProps.optional([])
