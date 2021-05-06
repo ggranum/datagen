@@ -7,6 +7,11 @@ version = rootProject['project.version']
 group = 'com.fetherbrik.datagen'
 
 
+repositories {
+    mavenCentral()
+}
+
+
 dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'com.google.guava:guava:30.1.1-jre'
